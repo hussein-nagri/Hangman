@@ -1,7 +1,12 @@
 defmodule Dictionary.WordList do
 
-  def random_word(word_list) do
-    Enum.random(word_list)
+
+  def start_link() do
+    Agent.start_link(fn -> word_list() end)
+  end
+
+  def random_word(agent) do
+    Agent.get(agent, &Enum.random/1)
   end
 
 
@@ -14,18 +19,18 @@ defmodule Dictionary.WordList do
   end
 
 
-  def swap_tuple({a,b}) do
-  {b,a}
-  end
-
-  def is_same({a,a}) do
-    true
-  end
-  def is_same({a,a}) do
-    true
-  end
-
-
 end
 
 
+
+
+  # def swap_tuple({a,b}) do
+  # {b,a}
+  # end
+
+  # def is_same({a,a}) do
+  #   true
+  # end
+  # def is_same({a,a}) do
+  #   true
+  # end
