@@ -33,6 +33,7 @@ def new_game(word) do
     game_state: game.game_state,
     turns_left: game.turns_left,
     letters:    game.letters |> reveal_guess(game.used),
+    guess: game.used
     }
   end
 
@@ -70,7 +71,7 @@ def new_game(word) do
 
   defp reveal_guess(letters, used) do
     letters
-    |> Enum.map(fn letter -> reveal_letter(letter, Mapset.member?(used, letter))end)
+    |> Enum.map(fn letter -> reveal_letter(letter, MapSet.member?(used, letter))end)
   end
 
   defp reveal_letter(letter, _in_mapset = true), do: letter
