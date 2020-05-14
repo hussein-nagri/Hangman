@@ -10,5 +10,4 @@ defmodule Hangman do
     {game, tally(game)}
   end
 
-
 end
