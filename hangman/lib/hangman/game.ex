@@ -21,11 +21,13 @@ def new_game(word) do
 
   def make_move(game = %{game_state: state}, _guess) when state in [:won, :lost] do
     game
+    |> return_with_tally()
   end
 
   def make_move(game, guess) do
     #validate if it is a lowercase ascii given:  isLower = String.downcase(guess) |> String.equivalent?(guess)
     accept_move(game, guess, MapSet.member?(game.used, guess) )
+    |> return_with_tally()
   end
 
   def tally(game) do
@@ -40,7 +42,7 @@ def new_game(word) do
 
   ###########################################################################################
 
-  defp accept_move(game, guess, _already_guessed = true) do
+  defp accept_move(game, _guess, _already_guessed = true) do
     Map.put(game, :game_state, :already_used)
   end
 
@@ -75,12 +77,17 @@ def new_game(word) do
   end
 
   defp reveal_letter(letter, _in_mapset = true), do: letter
-  defp reveal_letter(letter, _not_in_mapset), do: "_"
+  defp reveal_letter(_letter, _not_in_mapset), do: "_"
 
 
 
   defp maybe_won(_does_match = true), do: :won
   defp maybe_won(_doesnt_match), do: :good_guess
+
+  defp return_with_tally(game) do
+    {game, tally(game)}
+  end
+
 
 
 end
