@@ -13,10 +13,10 @@ defmodule MyAppWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", MyAppWeb do
+  scope "/hangman", MyAppWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", HangmanController, :new_game
   end
 
   # Other scopes may use custom stacks.
