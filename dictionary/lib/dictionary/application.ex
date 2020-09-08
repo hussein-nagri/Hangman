@@ -1,9 +1,9 @@
 defmodule Dictionary.Application do
-
   use Application
 
   def start(_type, _args) do
     import Supervisor.Spec
+
     children = [
       worker(Dictionary.WordList, [])
     ]
@@ -11,12 +11,9 @@ defmodule Dictionary.Application do
     options = [
       name: Dictionary.Supervisor,
       strategy: :one_for_one
-
-
     ]
 
     Supervisor.start_link(children, options)
     # Dictionary.WordList.start_link()
   end
-
 end
